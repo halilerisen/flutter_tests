@@ -34,7 +34,7 @@ void main() {
   group(
     'Validator - Password',
     () {
-      test('validate for empty password id', () {
+      test('validate for empty password', () {
         // Arrange & Act
         String? result = Validator.validatePassword(password: '');
 
@@ -42,7 +42,7 @@ void main() {
         expect(result, 'Required Field');
       });
 
-      test('validate for invalid password id', () {
+      test('validate for invalid password', () {
         // Arrange & Act
         String? result = Validator.validatePassword(password: 'pass');
 
@@ -50,7 +50,7 @@ void main() {
         expect(result, 'Please enter at least 8 character for password');
       });
 
-      test('validate for valid password id', () {
+      test('validate for valid password', () {
         // Arrange & Act
         String? result = Validator.validatePassword(password: 'password');
 
