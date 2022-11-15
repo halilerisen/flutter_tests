@@ -8,6 +8,19 @@ import 'fetch_book_test.mocks.dart';
 
 @GenerateMocks([http.Client])
 void main() {
+  late MockClient mockClient;
+  setUp(
+    () {
+      mockClient = MockClient();
+    },
+  );
+
+  tearDown(
+    () {
+      mockClient.close();
+    },
+  );
+
   group(
     'Fetch books API call test',
     () {
@@ -15,7 +28,7 @@ void main() {
         'Should return list of books for http success call',
         () async {
           // Arrange
-          final mockClient = MockClient();
+          mockClient = MockClient();
           when(mockClient.get(Uri.parse(fetchBooksURL)))
               .thenAnswer((realInvocation) async => http.Response('[{"name": "The 5 second rule", "auther": "Mel Robbins" }]', 200));
 
@@ -28,9 +41,8 @@ void main() {
         'Should throw an exception when  http api call finished with an error',
         () async {
           // Arrange
-          final mockClient = MockClient();
-          when(mockClient.get(Uri.parse(fetchBooksURL)))
-              .thenAnswer((realInvocation) async => http.Response('Not Found', 404));
+          mockClient = MockClient();
+          when(mockClient.get(Uri.parse(fetchBooksURL))).thenAnswer((realInvocation) async => http.Response('Not Found', 404));
 
           // Act & Assert
           expect(fetchBooks(mockClient), throwsException);
