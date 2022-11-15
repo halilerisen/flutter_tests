@@ -12,7 +12,17 @@ class Validator {
     if (!regExp.hasMatch(email)) {
       return 'Please enter a valid email id';
     }
+    return null;
+  }
 
+  static String? validatePassword({required String password}) {
+    if (password.isEmpty) {
+      return 'Required Field';
+    }
+
+    if (password.length < 8) {
+      return 'Please enter at least 8 character for password';
+    }
     return null;
   }
 }
